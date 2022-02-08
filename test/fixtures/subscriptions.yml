@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  subscriber: two
+  subscribable: first (Account)
+
+two:
+  subscriber: two
+  subscribable: first (Record)
+
+three:
+  subscriber: three
+  subscribable: second (Account)

@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  account: one
+  recordable: first (Link)
+  creator: one
+  title: MyString
+  subtitle: MyString
+  description: MyText
+
+two:
+  account: two
+  recordable: second (Link)
+  creator: two
+  title: MyString
+  subtitle: MyString
+  description: MyText

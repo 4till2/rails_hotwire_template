@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  _type:
+  url: https://yosefserkez.me
+  fields: 
+
+two:
+  _type:
+  url: https://yosefserkez.me
+  fields: 
