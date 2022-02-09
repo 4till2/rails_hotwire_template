@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   include Pundit
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   before_action :configure_permitted_parameters, if: :devise_controller?
+  helper_method :current_account
 
   def current_account
     if current_user
@@ -15,7 +16,6 @@ class ApplicationController < ActionController::Base
     UserContext.new(current_user, current_account)
   end
 
-  helper_method :current_account
 
   private
 

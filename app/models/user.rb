@@ -19,8 +19,6 @@ class User < ApplicationRecord
   has_one :account, dependent: :destroy
   has_one :profile, through: :account
 
-  has_many :records, foreign_key: 'creator_id'
-
   accepts_nested_attributes_for :account
 
   validates :email, presence: true, uniqueness: true, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: 'Invalid email' }

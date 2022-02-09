@@ -6,7 +6,6 @@ class AccountPolicyTest < ActionDispatch::IntegrationTest
     @account = @owner.account
     @guest = create_user_with_account
     @stranger = create_user_with_account
-    Subscription.create! subscriber: @guest.account, subscribable: @account
   end
 
   def test_scope
@@ -14,36 +13,18 @@ class AccountPolicyTest < ActionDispatch::IntegrationTest
 
   def test_show
     #private
-    @account.permission = permissions(:two)
-    @account.save
-
     sign_in_as(@owner)
     get account_url(@account)
     assert_response :success
 
     sign_in_as(@guest)
     get account_url(@account)
-    assert_response :success
+    assert_redirected_to root_path
 
     sign_in_as(@stranger)
     get account_url(@account)
     assert_redirected_to root_path
 
-    #public
-    @account.permission = permissions(:one)
-    @account.save
-
-    sign_in_as(@owner)
-    get account_url(@account)
-    assert_response :success
-
-    sign_in_as(@guest)
-    get account_url(@account)
-    assert_response :success
-
-    sign_in_as(@stranger)
-    get account_url(@account)
-    assert_response :success
   end
 
   def test_create

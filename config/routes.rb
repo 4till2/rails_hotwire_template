@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :records
   resources :profiles
   resources :accounts
   devise_for :users

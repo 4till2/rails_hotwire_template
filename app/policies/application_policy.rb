@@ -15,7 +15,7 @@ class ApplicationPolicy
   end
 
   def show?
-    owner? || public? || subscriber?
+    owner?
   end
 
   # Handled by authorization
@@ -58,34 +58,6 @@ class ApplicationPolicy
 
   private
 
-  # def is
-  # Currently allows for record and account level subscriptions. Inherits up the chain. TODO: do we like this?
-  def subscriber?
-    return unless @account
-
-    # subscriber of record directly
-    # optimization: checks from subscribers vantage for optimization, only checks if the record is a subscribable
-    # subscriber = @account.subscriptions.find { |s| s.subscribable == @record }.present? if @record.methods.include?(:subscribers)
-    if @record.methods.include?(:subscribers)
-      subscriber = Account.joins(:subscriptions).where(subscriptions: { subscribable_id: @record.id,
-                                                                        subscribable_type: @record.class.name,
-                                                                        subscriber_id: @account.id }).exists?
-    end
-    # subscriber of records' parent account
-    if subscriber.nil? && @record.has_attribute?(:account_id)
-      subscriber = Account.joins(:subscriptions).where(subscriptions: { subscribable_id: @record.account_id,
-                                                                        subscribable_type: @record.class.name,
-                                                                        subscriber_id: @account.id }).exists?
-    end
-    subscriber
-  end
-
-  def public?
-    public = @record.permission.scope == 'public' if @record.methods.include?(:permission)
-    public = @record.account.permission.scope == 'public' if public.nil? && @record.has_attribute?(:account_id)
-
-    public
-  end
 
   def owner?
     return @record == @account if @record.instance_of?(Account)

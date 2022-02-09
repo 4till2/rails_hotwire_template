@@ -6,7 +6,7 @@ class AccountPolicy < ApplicationPolicy
   end
 
   def show?
-    owner? || public? || subscriber?
+    owner?
   end
 
   def create?
